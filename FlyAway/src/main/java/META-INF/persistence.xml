@@ -11,8 +11,9 @@
     <persistence-unit name="FlyAway" transaction-type="RESOURCE_LOCAL">
     
         <!-- Define the class for Hibernate which implements JPA -->
-        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider> 
         <!-- Define the object that should be persisted in the database -->
+       <!--  <provider>org.hibernate.ejb.HibernatePersistence</provider> -->
         <class>com.project2.FlyAway.Customer</class>
         <properties>
             <!-- Driver for DB database -->
@@ -20,7 +21,7 @@
             <!-- URL for DB -->
             <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost/fly_away" />
             <!-- Username -->
-            <property name="javax.persistence.jdbc.user" value="dbadmin" />
+            <property name="javax.persistence.jdbc.user" value="root" />
             <!-- Password -->
             <property name="javax.persistence.jdbc.password" value="p85y64mM" />
         </properties>

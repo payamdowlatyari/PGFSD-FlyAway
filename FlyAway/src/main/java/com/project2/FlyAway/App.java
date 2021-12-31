@@ -1,6 +1,7 @@
 package com.project2.FlyAway;
 
 import java.util.List;
+import java.util.Scanner;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -18,18 +19,26 @@ public class App
 	    
     public static void main( String[] args )
     {
+    	Scanner inputReader = new Scanner(System.in);
     	
-    	addCustomer(2, "Mina", "Fanaian");
-    	addCustomer(3, "Sina", "Simon");
+    	getFlights();
     	
-    	getCustomer(1);
+    	System.out.println("Select a flight number");
+    	int flight = inputReader.nextInt();
+    	
+    	System.out.println("Please enter you first name");
+    	String firstname = inputReader.next();
+    	 
+    	System.out.println("Please enter you last name");
+    	String lastname = inputReader.next(); 
+    	
+    	addCustomer(firstname, lastname);
     	getCustomers();
-    	
-    	deleteCustomer(3);    	
+
         	ENTITY_MANAGER_FACTORY.close();
     }
     
-    public static void addCustomer(int id, String fname, String lname) {
+    public static void addCustomer(String fname, String lname) {
         // The EntityManager class allows operations such as create, read, update, delete
         EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
         // Used to issue transactions on the EntityManager
@@ -42,7 +51,7 @@ public class App
  
             // Create and set values for new customer
             Customer cust = new Customer();
-            cust.setId(id);
+            // cust.setId(id);
             cust.setfName(fname);
             cust.setlName(lname);
  
@@ -67,7 +76,7 @@ public class App
     	
     	// the lowercase c refers to the object
     	// :custID is a parameterized query thats value is set below
-    	String query = "SELECT c FROM Customer c WHERE c.id = :custID";
+    	String query = "SELECT c FROM Customer c WHERE c.id = :customer_id";
     	
     	// Issue the query and get a matching Customer
     	TypedQuery<Customer> tq = em.createQuery(query, Customer.class);
@@ -91,7 +100,6 @@ public class App
     	EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
     	
     	// the lowercase c refers to the object
-    	// :custID is a parameterized query thats value is set below
     	String strQuery = "SELECT c FROM Customer c WHERE c.id IS NOT NULL";
     	
     	// Issue the query and get a matching Customer
@@ -103,7 +111,9 @@ public class App
     		
     		
     		for (int i = 0; i < custs.size(); i++) {
-    			System.out.println(custs.get(i).getfName());
+    			System.out.println(custs.get(i).getId()
+    					+ " | " + custs.get(i).getfName()
+    		+ " | " + custs.get(i).getlName());
     		}
     		
     	}
@@ -136,5 +146,40 @@ public class App
             // Close EntityManager
             em.close();
         }
+    }
+    
+    
+    public static void getFlights() {
+    	EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
+    	
+    	// Issue the query and get a matching objects from Flight table
+    	String strQuery = "SELECT f FROM Flight f WHERE f.id IS NOT NULL";
+    	
+    	TypedQuery<Flight> tq = em.createQuery(strQuery, Flight.class);
+    	List<Flight> flights;
+    	try {
+    		
+    		flights = tq.getResultList();
+    		
+    		for (int i = 0; i < flights.size(); i++) {
+    			System.out.println(flights.get(i).getId() 
+    					+ " | " + flights.get(i).getDep_airport()
+    					+ " | " + flights.get(i).getArr_airport()
+    					+ " | " + flights.get(i).getDep_time()
+    					+ " | " + flights.get(i).getArr_time()
+    					+ " | " + flights.get(i).getAvailable_seats()
+    					+ " | " + flights.get(i).getPrice());	
+    		}
+    	}
+    	catch(NoResultException ex) {
+    		ex.printStackTrace();
+    	}
+    	finally {
+    		em.close();
+    	}
+    }
+    
+    public static void createTicket(int cid, int fid, int quantity) {
+    	
     }
 }
