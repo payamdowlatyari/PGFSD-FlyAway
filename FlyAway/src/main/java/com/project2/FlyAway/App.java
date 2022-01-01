@@ -19,21 +19,52 @@ public class App
 	    
     public static void main( String[] args )
     {
-    	Scanner inputReader = new Scanner(System.in);
     	
-    	getFlights();
     	
-    	System.out.println("Select a flight number");
-    	int flight = inputReader.nextInt();
     	
-    	System.out.println("Please enter you first name");
-    	String firstname = inputReader.next();
-    	 
-    	System.out.println("Please enter you last name");
-    	String lastname = inputReader.next(); 
+    	try (Scanner inputReader = new Scanner(System.in)) {
+    		
+    		System.out.println("Welcome to FlyAway");
+        	System.out.println("Here is our flights schedule");
+        	System.out.println("********************************");
+        	getFlights();
+        	System.out.println("********************************");
+        	System.out.println("Would you like to purchase a ticket?(y/n)");
+    		
+        	String select = inputReader.next();
+        	
+        	if(select.equals("y") || select.equals("Y") || select.equals("yes") || select.equals("Yes")) { 
+        	
+			System.out.println("Select a flight number");
+			int flight = inputReader.nextInt();
+			
+			System.out.println("Select a price");
+			int price = inputReader.nextInt();
+			
+			System.out.println("Select a number of tickets");
+			int quintity = inputReader.nextInt();
+			
+			System.out.println("Please enter you first name");
+			String firstname = inputReader.next();
+			 
+			System.out.println("Please enter you last name");
+			String lastname = inputReader.next(); 
+			
+			
+			
+				addCustomer(firstname, lastname);
+				//System.out.println(getTicketPrice(flight, quintity));
+				
+			
+			   createTicket(firstname, lastname, flight, price * quintity);
+			
+        	}
+
+        	System.out.println("Goodbye!");
+            
+		}
     	
-    	addCustomer(firstname, lastname);
-    	getCustomers();
+
 
         	ENTITY_MANAGER_FACTORY.close();
     }
@@ -68,6 +99,8 @@ public class App
             // Close EntityManager
             em.close();
         }
+        
+
     }
     
     
@@ -95,6 +128,7 @@ public class App
     		em.close();
     	}
     }
+    
     
     public static void getCustomers() {
     	EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
@@ -179,7 +213,67 @@ public class App
     	}
     }
     
-    public static void createTicket(int cid, int fid, int quantity) {
+    public static int getTicketPrice(int fid, int quant) {
+    	EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
+    	
+    	//int price = 0;
+    	// Issue the query and get a matching objects from Flight table
+    	String strQuery = "SELECT f FROM Flight f WHERE f.id IS NOT NULL";
+    	
+    	TypedQuery<Flight> tq = em.createQuery(strQuery, Flight.class);
+    	List<Flight> flights;
+    	try {
+    		
+    		flights = tq.getResultList();
+    		
+    		return flights.get(fid).getPrice() * quant;
+    		
+    	}
+    	catch(NoResultException ex) {
+    		ex.printStackTrace();
+    	}
+    	finally {
+    		
+    		em.close();
+    	}
+		return quant;
+    }
+    
+    public static void createTicket(String fname, String lname, int flight, int price) {
+    	
+    	EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
+    	
+    	System.out.println("********************************");
+    	System.out.println("Your ticket information:");
+    	System.out.println("Firstname: "+fname + " | " + "Lastname: "+ lname);
+    	
+    	String strQuery = "SELECT f FROM Flight f WHERE f.id IS NOT NULL";
+    	
+    	TypedQuery<Flight> tq = em.createQuery(strQuery, Flight.class);
+    	List<Flight> flights;
+    	try {
+    		
+    		flights = tq.getResultList();
+    		
+    		for (int i = 0; i < flights.size(); i++) {
+    			if (flights.get(i).getId() == flight ) {
+    			System.out.println(flights.get(i).getId() 
+    					+ " | " + flights.get(i).getDep_airport()
+    					+ " | " + flights.get(i).getArr_airport()
+    					+ " | " + flights.get(i).getDep_time()
+    					+ " | " + flights.get(i).getArr_time());
+    					
+    		}
+    		}
+    		System.out.println("Total: " + price);
+    		System.out.println("********************************");
+    	}
+    	catch(NoResultException ex) {
+    		ex.printStackTrace();
+    	}
+    	finally {
+    		em.close();
+    	}
     	
     }
 }
