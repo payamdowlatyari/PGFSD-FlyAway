@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app>
+  <display-name>FlyAway</display-name>
+  <welcome-file-list>
+  <welcome-file>Home.html</welcome-file>
+   <welcome-file>default.html</welcome-file>
+       <welcome-file>default.htm</welcome-file>
+       <welcome-file>default.jsp</welcome-file>
+  </welcome-file-list>
+  <servlet>
+    <servlet-name>AdminServlet</servlet-name>
+    <servlet-class>com.payamd.services.AdminServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+    <servlet-name>AdminServlet</servlet-name>
+    <url-pattern>/Admin/*</url-pattern>
+</servlet-mapping>
+ <servlet>
+    <servlet-name>FlightServlet</servlet-name>
+    <servlet-class>com.payamd.services.FlightServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+    <servlet-name>FlightServlet</servlet-name>
+    <url-pattern>/flight/*</url-pattern>
+</servlet-mapping>
+ <servlet>
+    <servlet-name>CustomerServlet</servlet-name>
+    <servlet-class>com.payamd.services.CustomerServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+    <servlet-name>CustomerServlet</servlet-name>
+    <url-pattern>/customer/*</url-pattern>
+</servlet-mapping>
+ <servlet>
+    <servlet-name>TicketServlet</servlet-name>
+    <servlet-class>com.payamd.services.TicketServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+    <servlet-name>TicketServlet</servlet-name>
+    <url-pattern>/ticket/*</url-pattern>
+</servlet-mapping>
+</web-app>
+

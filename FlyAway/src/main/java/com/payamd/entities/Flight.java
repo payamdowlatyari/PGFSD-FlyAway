@@ -1,43 +1,65 @@
-package com.project2.FlyAway;
+package com.payamd.entities;
+
 
 import java.io.Serializable;
-import java.sql.Date;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "Flight")
 public class Flight implements Serializable{
+	
 
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@Column(name = "flight_id", unique = true)
-	private int id;
+	protected int id;
 	
-	@Id
 	@Column(name = "dep_airport", nullable = false)
 	private String dep_airport;
 	
-	@Id
 	@Column(name = "arr_airport", nullable = false)
 	private String arr_airport;
 	
-	@Id
 	@Column(name = "dep_time", nullable = false)
-	private Date dep_time;
+	private String dep_time;
 	
-	@Id
 	@Column(name = "arr_time", nullable = false)
-	private Date arr_time;
+	private String arr_time;
 	
-	@Id
 	@Column(name = "available_seats", nullable = false)
 	private int available_seats;
-	
-	@Id
+
 	@Column(name = "price", nullable = false)
 	private int price;
+	
+	public Flight() {
+		
+	}
+	
+	public Flight(String dep_airport, String arr_airport, String dep_time, String arr_time, int available_seats, int price) {
+		this.dep_airport = dep_airport;
+		this.arr_airport = arr_airport;
+		this.dep_time = dep_time;
+		this.arr_time = arr_time;
+		this.available_seats = available_seats;
+		this.price = price;
+		
+	}
+	
+	public Flight(int id, String dep_airport, String arr_airport, String dep_time, String arr_time, int available_seats, int price) {
+		this.id = id;
+		this.dep_airport = dep_airport;
+		this.arr_airport = arr_airport;
+		this.dep_time = dep_time;
+		this.arr_time = arr_time;
+		this.available_seats = available_seats;
+		this.price = price;
+	}
 
 	public int getId() {
 		return id;
@@ -63,19 +85,19 @@ public class Flight implements Serializable{
 		this.arr_airport = arr_airport;
 	}
 
-	public Date getDep_time() {
+	public String getDep_time() {
 		return dep_time;
 	}
 
-	public void setDep_time(Date dep_time) {
+	public void setDep_time(String dep_time) {
 		this.dep_time = dep_time;
 	}
 
-	public Date getArr_time() {
+	public String getArr_time() {
 		return arr_time;
 	}
 
-	public void setArr_time(Date arr_time) {
+	public void setArr_time(String arr_time) {
 		this.arr_time = arr_time;
 	}
 

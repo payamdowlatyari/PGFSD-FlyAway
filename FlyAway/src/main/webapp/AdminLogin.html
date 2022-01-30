@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <title>Admin Login Form</title>
+    <link rel="stylesheet" href="Home.css">
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+   
+</head>
+
+<body>
+    <div class="header">
+        <div class="container header_conatiner">
+            <a href="Home.html" class="logo" style="padding-left:20px;text-decoration: none;">
+                FlyAway
+           </a>
+            <div>
+                <ul class="nav-area" style="padding-right:15px;">
+                    <li><a href="Home.html">Home</a></li>
+                    <li><a href="#loginas">Login</a></li>
+                   
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="content" id="loginas">
+        <header>Admin Login</header>
+        <form action="Admin?action=AdminAuthenticate" method="post">
+            <div class="field">
+                <span class="fa fa-user"></span>
+                <input type="text" name= "name" required placeholder="name">
+            </div>
+            <div class="field space">
+                <span class="fa fa-lock"></span>
+                <input type="password" name="password" class="pass-key" required placeholder="Password">
+
+            </div>
+            <br>
+            <div>
+                <div class="field">
+                    <input type="submit" value="LOGIN">
+                </div>
+            </div>
+
+        </form>
+
+    </div>
+
+    <div style="padding-top:600px;">
+        <div class="footer" id="contact">
+            <div class="container footer_container">
+               
+         
+            </div>
+        </div>
+    </div>
+
+
+</body>
+
+</html>

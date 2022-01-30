@@ -21,12 +21,14 @@ PRIMARY KEY (flight_id)
 );
 
 CREATE TABLE Ticket(
-customer_id INTEGER,
-flight_id INTEGER,
-quantity INTEGER NOT NULL,
-PRIMARY KEY (customer_id, flight_id),
-FOREIGN KEY (customer_id) REFERENCES Customer (customer_id) ON DELETE CASCADE,
-FOREIGN KEY (flight_id) REFERENCES Flight (flight_id) ON DELETE CASCADE
+ticket_id INTEGER NOT NULL AUTO_INCREMENT,
+first_name VARCHAR (50) NOT NULL,
+last_name VARCHAR (50) NOT NULL,
+flight_id INTEGER NOT NULL,
+quantity INTEGER DEFAULT 1,
+price INTEGER NOT NULL,
+status VARCHAR (10) NOT NULL,
+PRIMARY KEY (ticket_id)
 );
 
 
@@ -36,4 +38,4 @@ INSERT INTO Flight VALUES (101,'SFO','LAX','2021-12-31 17:30:00','2021-12-31 18:
 
 INSERT INTO Customer VALUES (1,'Payam','Dowlatyari');
 
-INSERT INTO Ticket VALUES (1,101,1);
+INSERT INTO Ticket VALUES (1,'Payam','Dowlatyari',101,1,100,'Pending');
